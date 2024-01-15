@@ -24,12 +24,10 @@ fn main() {
     println!("sin with precision 100000: {}", s);
 }
 
-fn integrate<F>(interval: Range<f64>, precision: i64, mut f: F) -> f64
+fn integrate<F>(interval: Range<f64>, n: i64, mut f: F) -> f64
 where
     F: FnMut(f64) -> f64,
 {
-    let dx = (interval.end - interval.start) / precision as f64;
-    (0..=precision)
-        .map(|k| f(interval.start + dx * k as f64) * dx)
-        .sum()
+    let dx = (interval.end - interval.start) / n as f64;
+    (0..n).map(|k| f(interval.start + dx * k as f64) * dx).sum()
 }
